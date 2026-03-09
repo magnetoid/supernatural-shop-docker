@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: supernatural-postgres
+    environment:
+      POSTGRES_USER: medusa
+      POSTGRES_PASSWORD: medusa_secret
+      POSTGRES_DB: supernatural_shop
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medusa"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: supernatural-redis
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./supernatural-shop
+      dockerfile: Dockerfile
+    container_name: supernatural-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://medusa:medusa_secret@postgres:5432/supernatural_shop
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: supersecret
+      COOKIE_SECRET: supersecret
+      NODE_ENV: production
+      MEDUSA_ADMIN_ONBOARDING_TYPE: nextjs
+      STORE_CORS: http://localhost:8000,https://supernatural-shop.com
+      ADMIN_CORS: http://localhost:9000
+      AUTH_CORS: http://localhost:9000,http://localhost:8000
+    ports:
+      - "9000:9000"
+
+  storefront:
+    build:
+      context: ./supernatural-shop-storefront
+      dockerfile: Dockerfile
+    container_name: supernatural-storefront
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://backend:9000
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
+  redis_data:
