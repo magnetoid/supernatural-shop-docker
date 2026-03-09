@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   postgres:
     image: postgres:15-alpine
@@ -29,7 +28,7 @@ services:
 
   backend:
     build:
-      context: ./supernatural-shop
+      context: ./backend
       dockerfile: Dockerfile
     container_name: supernatural-backend
     depends_on:
@@ -44,28 +43,25 @@ services:
       COOKIE_SECRET: supersecret
       NODE_ENV: production
       MEDUSA_ADMIN_ONBOARDING_TYPE: nextjs
-      STORE_CORS: http://localhost:8000,https://supernatural-shop.com
-      ADMIN_CORS: http://localhost:9000
-      AUTH_CORS: http://localhost:9000,http://localhost:8000
-    ports:
-      - "9000:9000"
+      STORE_CORS: https://supernatural.fpp.co.uk
+      ADMIN_CORS: https://api.supernatural.fpp.co.uk
+      AUTH_CORS: https://api.supernatural.fpp.co.uk,https://supernatural.fpp.co.uk
+    labels:
+      - "traefik.http.routers.backend.rule=Host(`api.supernatural.fpp.co.uk`)"
+      - "traefik.http.services.backend.loadbalancer.server.port=9000"
 
-environment:
-  SERVICE_URL_BACKEND: ${SERVICE_URL_BACKEND}
-  SERVICE_FQDN_BACKEND: ${SERVICE_FQDN_BACKEND}
-  SERVICE_URL_STOREFRONT: ${SERVICE_URL_STOREFRONT}
-  SERVICE_FQDN_STOREFRONT: ${SERVICE_FQDN_STOREFRONT}
   storefront:
     build:
-      context: ./supernatural-shop-storefront
+      context: ./storefront
       dockerfile: Dockerfile
     container_name: supernatural-storefront
     depends_on:
       - backend
     environment:
-      NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://backend:9000
-    ports:
-      - "8000:8000"
+      NEXT_PUBLIC_MEDUSA_BACKEND_URL: https://api.supernatural.fpp.co.uk
+    labels:
+      - "traefik.http.routers.storefront.rule=Host(`supernatural.fpp.co.uk`)"
+      - "traefik.http.services.storefront.loadbalancer.server.port=8000"
 
 volumes:
   postgres_data:
