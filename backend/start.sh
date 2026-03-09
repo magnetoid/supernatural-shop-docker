@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
 echo "Running migrations..."
-npx medusa db:migrate
+node_modules/.bin/medusa db:migrate
 echo "Starting server..."
-exec npm run start
+exec node_modules/.bin/medusa start
