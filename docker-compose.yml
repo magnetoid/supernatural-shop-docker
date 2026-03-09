@@ -37,7 +37,7 @@ services:
       redis:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://medusa:medusa_secret@postgres:5432/supernatural_shop
+      DATABASE_URL: postgresql://medusa:medusa_secret@postgres:5432/supernatural_shop?sslmode=disable
       REDIS_URL: redis://redis:6379
       JWT_SECRET: supersecret
       COOKIE_SECRET: supersecret
