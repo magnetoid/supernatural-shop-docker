@@ -50,6 +50,11 @@ services:
     ports:
       - "9000:9000"
 
+environment:
+  SERVICE_URL_BACKEND: ${SERVICE_URL_BACKEND}
+  SERVICE_FQDN_BACKEND: ${SERVICE_FQDN_BACKEND}
+  SERVICE_URL_STOREFRONT: ${SERVICE_URL_STOREFRONT}
+  SERVICE_FQDN_STOREFRONT: ${SERVICE_FQDN_STOREFRONT}
   storefront:
     build:
       context: ./supernatural-shop-storefront
