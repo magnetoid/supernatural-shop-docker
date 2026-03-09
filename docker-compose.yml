@@ -54,6 +54,8 @@ services:
     build:
       context: ./storefront
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_MEDUSA_BACKEND_URL: https://api.supernatural.fpp.co.uk
     container_name: supernatural-storefront
     depends_on:
       - backend
