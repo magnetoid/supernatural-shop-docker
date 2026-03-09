@@ -50,21 +50,6 @@ services:
       - "traefik.http.routers.backend.rule=Host(`api.supernatural.fpp.co.uk`)"
       - "traefik.http.services.backend.loadbalancer.server.port=9000"
 
-  storefront:
-    build:
-      context: ./storefront
-      dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_MEDUSA_BACKEND_URL: https://api.supernatural.fpp.co.uk
-    container_name: supernatural-storefront
-    depends_on:
-      - backend
-    environment:
-      NEXT_PUBLIC_MEDUSA_BACKEND_URL: https://api.supernatural.fpp.co.uk
-    labels:
-      - "traefik.http.routers.storefront.rule=Host(`supernatural.fpp.co.uk`)"
-      - "traefik.http.services.storefront.loadbalancer.server.port=8000"
-
 volumes:
   postgres_data:
   redis_data:
