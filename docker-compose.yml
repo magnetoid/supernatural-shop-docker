@@ -14,7 +14,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   redis:
     image: redis:7-alpine
     container_name: supernatural-redis
@@ -25,7 +24,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   backend:
     build:
       context: ./backend
@@ -43,17 +41,9 @@ services:
       COOKIE_SECRET: supersecret
       NODE_ENV: production
       MEDUSA_ADMIN_ONBOARDING_TYPE: nextjs
-      STORE_CORS: https://supernatural.fpp.co.uk
-      ADMIN_CORS: https://api.supernatural.fpp.co.uk
-      AUTH_CORS: https://api.supernatural.fpp.co.uk,https://supernatural.fpp.co.uk
-    labels:
-      - "traefik.http.routers.backend.rule=Host(`api.supernatural.fpp.co.uk`)"
-      - "traefik.http.services.backend.loadbalancer.server.port=9000"
-
-volumes:
-  postgres_data:
-  redis_data:
-
+      STORE_CORS: https://supernatural-shop.com
+      ADMIN_CORS: https://backend.supernatural-shop.com
+      AUTH_CORS: https://backend.supernatural-shop.com,https://supernatural-shop.com
   storefront:
     build:
       context: ./storefront
@@ -67,3 +57,6 @@ volumes:
       NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: pk_160e17723e7311a2b1ddbb0ace5e0c6c15a422364f39d1a117bb1989cae8ed03
     depends_on:
       - backend
+volumes:
+  postgres_data:
+  redis_data:
