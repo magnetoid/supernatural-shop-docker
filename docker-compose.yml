@@ -56,7 +56,7 @@ services:
     environment:
       NEXT_PUBLIC_MEDUSA_BACKEND_URL: https://backend.supernatural-shop.com
       NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: pk_160e17723e7311a2b1ddbb0ace5e0c6c15a422364f39d1a117bb1989cae8ed03
-        MEDUSA_BACKEND_URL: https://backend.supernatural-shop.com
+      MEDUSA_BACKEND_URL: https://backend.supernatural-shop.com
     depends_on:
       - backend
 volumes:
