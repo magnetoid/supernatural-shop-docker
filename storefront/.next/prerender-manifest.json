@@ -1,0 +1,70 @@
+{
+  "version": 4,
+  "routes": {
+    "/opengraph-image.jpg": {
+      "initialHeaders": {
+        "cache-control": "public, immutable, no-transform, max-age=31536000",
+        "content-type": "image/jpeg",
+        "x-next-cache-tags": "_N_T_/layout,_N_T_/opengraph-image.jpg/layout,_N_T_/opengraph-image.jpg/route,_N_T_/opengraph-image.jpg"
+      },
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/opengraph-image.jpg",
+      "dataRoute": null,
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/twitter-image.jpg": {
+      "initialHeaders": {
+        "cache-control": "public, immutable, no-transform, max-age=31536000",
+        "content-type": "image/jpeg",
+        "x-next-cache-tags": "_N_T_/layout,_N_T_/twitter-image.jpg/layout,_N_T_/twitter-image.jpg/route,_N_T_/twitter-image.jpg"
+      },
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/twitter-image.jpg",
+      "dataRoute": null,
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    }
+  },
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "c2d07ff2397fc628db7e5b9ad9c4bbda",
+    "previewModeSigningKey": "bbc22e856c862251d5abfe5b4f797a994ae2d107d8d23a23f678aac04fb35c0e",
+    "previewModeEncryptionKey": "b9b75a6c3e3478ddf2fd1cefe6f785f115e3a1194df52f4459cf256fc745088e"
+  }
+}
