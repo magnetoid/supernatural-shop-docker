@@ -6,6 +6,7 @@ COPY . .
 ENV NODE_ENV=development
 RUN npm run build
 RUN cp -r .medusa/server/. .
+ENV NODE_ENV=production
 COPY start.sh ./
 RUN chmod +x start.sh
 EXPOSE 9000
